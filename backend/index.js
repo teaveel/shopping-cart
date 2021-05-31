@@ -5,12 +5,12 @@ const mongoose = require("mongoose");
 const app = express();
 const PORT = process.env.PORT || 4000;
 
-const router = require("./router")
+const productRouter = require("./router/products.js")
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.raw());
-app.use("/shop", router)
+app.use("/products", productRouter)
 
 mongoose
   .connect(process.env.MONGO_URI, { useUnifiedTopology: true,  useNewUrlParser: true })

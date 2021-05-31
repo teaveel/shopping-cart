@@ -1,9 +1,9 @@
 const router = require("express").Router();
 
-const Product = require("./model/Product")
+const Product = require("../model/Product")
 
 router.get("/",  (req, res) => {
-    const {page, amount} = req.query;
+    const {page, amount, sortBy} = req.query;
     const products = Product.find({});
     console.log(products)
     res.json({
