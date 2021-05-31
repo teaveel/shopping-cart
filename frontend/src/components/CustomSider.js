@@ -1,6 +1,6 @@
 import React from 'react';
 import {BrowserRouter as Router, Switch, Route, Link} from "react-router-dom"
-import {Layout, Menu} from "antd";
+import {Layout, Menu, Button} from "antd";
 import '../scss/style.scss'
 import "../css/core-style.css"
 import logo from "../img/core-img/logo.png"
@@ -12,7 +12,7 @@ const {Sider} = Layout;
 
 export default function CustomSider() {
     return(
-        <div className="header-area clearfix">
+        <header className="header-area clearfix">
             {/* <!-- Close Icon --> */}
             <div className="nav-close">
                 <i className="fa fa-close" aria-hidden="true"></i>
@@ -50,8 +50,8 @@ export default function CustomSider() {
             </nav>
             {/* <!-- Button Group --> */}
             <div className="amado-btn-group mt-30 mb-100">
-            <a href="#" className="btn amado-btn mb-15">%Discount%</a>
-            <a href="#" className="btn amado-btn active">New this week</a>
+                <Button className="btn amado-btn mb-15">%Discount%</Button>
+                <Button className="btn amado-btn active">New this week</Button>
             </div>
             {/* <!-- Cart Menu --> */}
             <div className="cart-fav-search mb-100">
@@ -72,6 +72,6 @@ export default function CustomSider() {
             <a href="#"><i className="fa fa-facebook" aria-hidden="true"></i></a>
             <a href="#"><i className="fa fa-twitter" aria-hidden="true"></i></a>
             </div>
-        </div>
+        </header>
     )
 }
