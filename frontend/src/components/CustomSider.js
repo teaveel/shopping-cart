@@ -19,33 +19,33 @@ export default function CustomSider() {
             </div>
             {/* <!-- Logo --> */}
             <div className="logo">
-                <a href="index.html"><img className="main-logo" src={logo} alt="" /></a>
+                <Link to="/">
+                    <img className="main-logo" src={logo} alt="" />
+                </Link>
+                {/* <a href="index.html"></a> */}
             </div>
             {/* <!-- Amado Nav --> */}
             <nav className="amado-nav">
-                {/* <Menu classNameName="amado-nav">
-                    <Menu.Item key="home" classNameName="active">
-                        Home
-                    </Menu.Item>
-                    <Menu.Item key="home" classNameName="active">
-                        Shop
-                    </Menu.Item>
-                    <Menu.Item key="home" classNameName="active">
-                        Product
-                    </Menu.Item>
-                    <Menu.Item key="home" classNameName="active">
-                        Cart
-                    </Menu.Item>
-                    <Menu.Item key="home" classNameName="active">
-                        Checkout
-                    </Menu.Item>
-                </Menu> */}
                 <ul>
-                    <li className="active"><a href="index.html">Home</a></li>
-                    <li><a href="shop.html">Shop</a></li>
-                    <li><a href="product-details.html">Product</a></li>
-                    <li><a href="cart.html">Cart</a></li>
-                    <li><a href="checkout.html">Checkout</a></li>
+                    <li className="active">
+                        <Link to="/">
+                            Home
+                        </Link>
+                    </li>
+                    <li><Link to="/shop">
+                            Shop
+                        </Link></li>
+                    <li><Link to="/product">
+                            Product
+                        </Link></li>
+                    <li><Link to="/cart">
+                            Cart
+                        </Link></li>
+                    <li>
+                        <Link to="/checkout">
+                            Checkout
+                        </Link>
+                    </li>
                 </ul>
             </nav>
             {/* <!-- Button Group --> */}

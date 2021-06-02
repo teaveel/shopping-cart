@@ -1,5 +1,5 @@
 import React from 'react';
-import {Layout, Row, Col} from "antd";
+import {Layout, Row, Col, Menu} from "antd";
 import {Link} from "react-router-dom"
 import '../scss/style.scss'
 import "../css/core-style.css"
@@ -7,19 +7,21 @@ import logo2 from "../img/core-img/logo2.png";
 import moment from "moment";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHeart } from '@fortawesome/free-solid-svg-icons'
+//import 'bootstrap/dist/css/bootstrap.css';
 
 const {Footer} = Layout;
+
 export default function CustomFooter() {
     return(
-        <Footer className="footer_area">
+        <div className="footer_area">
             <div className="container">
-                <Row align="center" justify="center" >
-                    <Col span={ 8 }>
+                <Row align="middle" justify="space-between" className="d-flex" >
+                    <Col span={8} className="center-item">
                         <div className="single_widget_area">
                             <div className="footer-logo mr-50">
                                 <img src={logo2} alt=""/>
                             </div>
-                            <p class="copywrite">
+                            <p className="copywrite">
                                 Copyright © 2021
                                 All rights reserved | This template is made with
                                 <FontAwesomeIcon icon={faHeart} /> by
@@ -30,7 +32,7 @@ export default function CustomFooter() {
                             
                         </div>
                     </Col>
-                    <Col span={ 16 }>
+                    <Col span={ 16 } className="center-item">
                         <div className="single_widget_area">
                             <div className="footer_menu">
                             <nav className="navbar navbar-expand-lg justify-content-end">
@@ -47,23 +49,23 @@ export default function CustomFooter() {
                                 </button>
                                 <div className="collapse navbar-collapse" id="footerNavContent">
                                     <ul className="navbar-nav ml-auto">
-                                        <li className="nav-item active">
-                                        <a className="nav-link" href="index.html">Home</a>
-                                        </li>
-                                        <li className="nav-item">
-                                        <a className="nav-link" href="shop.html">Shop</a>
-                                        </li>
-                                        <li className="nav-item">
-                                        <a className="nav-link" href="product-details.html"
+                                        <ul className="nav-item active">
+                                            <a className="nav-link" href="index.html">Home</a>
+                                        </ul>
+                                        <ul className="nav-item">
+                                            <a className="nav-link" href="shop.html">Shop</a>
+                                        </ul>
+                                        <ul className="nav-item">
+                                            <a className="nav-link" href="product-details.html"
                                             >Product</a
                                         >
-                                        </li>
-                                        <li className="nav-item">
-                                        <a className="nav-link" href="cart.html">Cart</a>
-                                        </li>
-                                        <li className="nav-item">
-                                        <a className="nav-link" href="checkout.html">Checkout</a>
-                                        </li>
+                                        </ul>
+                                        <ul className="nav-item">
+                                            <a className="nav-link" href="cart.html">Cart</a>
+                                        </ul>
+                                        <ul className="nav-item">
+                                            <a className="nav-link" href="checkout.html">Checkout</a>
+                                        </ul>
                                     </ul>
                                 </div>
                             </nav>
@@ -72,6 +74,6 @@ export default function CustomFooter() {
                     </Col>
                 </Row>
             </div>
-        </Footer>
+        </div>
     )
 }
