@@ -1,20 +1,26 @@
 require("dotenv").config();
 const express = require('express');
 const mongoose = require("mongoose");
+const connectDB = require("./config/db")
 
-const app = express();
 const PORT = process.env.PORT || 4000;
 
-const productRouter = require("./router/products.js")
+const app = express();
 
+const productRouter = require("./routers/product.js")
+
+
+app.use(require("cors")());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(express.raw());
-app.use("/products", productRouter)
 
-mongoose
-  .connect(process.env.MONGO_URI, { useUnifiedTopology: true,  useNewUrlParser: true })
-  .then(() => console.log("MongoDB successfully connected!"))
-  .catch((err) => console.log(err));
+connectDB();
+
+app.get("/", (req, res) => {
+  res.json({ message: "api is running!" });
+});
+
+app.use("/api/products", productRouter)
+
 
 app.listen(PORT, () => console.log(`server is running: http://localhost:${PORT}`))
