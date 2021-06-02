@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import CustomSider from "../components/CustomSider";
 import CustomFooter from "../components/CustomFooter";
+import NewsLetter from "../components/NewsLetter";
 import {Layout, Row, Col} from "antd";
 import '../scss/style.scss'
 import "../css/core-style.css"
@@ -23,138 +24,114 @@ export default function Home() {
         <Layout>
             <Layout>
                 <Content className="main-content-wrapper d-flex clearfix">
-                    {/* <Row justify="end" align="end" className="d-flex"> */}
-                        {/* <Col span={}> */}
-                            <CustomSider />
-                        {/* </Col> */}
-                        {/* <Col span={18}> */}
-                            {/* <!-- Product Catagories Area Start --> */}
-                        <div className="products-catagories-area clearfix">
-                            <div className="amado-pro-catagory clearfix">
-                                {/* <!-- Single Catagory --> */}
-                                <div className="single-products-catagory clearfix">
+                    <CustomSider />
+                        {/* <!-- Product Catagories Area Start --> */}
+                    <div className="products-catagories-area clearfix">
+                        <div className="amado-pro-catagory clearfix">
+                            <Row justify="center" align="top">
+                                <Col span={8}className="single-products-catagory clearfix">
                                     <a href="shop.html">
-                                    <img src={bg1} alt="" />
-                                    {/* <!-- Hover Content --> */}
-                                    <div className="hover-content">
-                                        <div className="line"></div>
-                                        <p>From $180</p>
-                                        <h4>Modern Chair</h4>
-                                    </div>
+                                        <img src={bg1} alt="" />
+                                        {/* <!-- Hover Content --> */}
+                                        <div className="hover-content">
+                                            <div className="line"></div>
+                                            <p>From $180</p>
+                                            <h4>Modern Chair</h4>
+                                        </div>
                                     </a>
-                                </div>
+                                    <a href="shop.html">
+                                        <img src={bg5} alt="" />
+                                        {/* <!-- Hover Content --> */}
+                                        <div className="hover-content">
+                                            <div className="line"></div>
+                                            <p>From $180</p>
+                                            <h4>Night Stand</h4>
+                                        </div>
+                                    </a>
+                                    <a href="shop.html">
+                                        <img src={bg8} alt="" />
+                                        {/* <!-- Hover Content --> */}
+                                        <div className="hover-content">
+                                            <div className="line"></div>
+                                            <p>From $318</p>
+                                            <h4>Metallic Chair</h4>
+                                        </div>
+                                    </a>
+                                </Col>
 
                                 {/* <!-- Single Catagory --> */}
-                                <div className="single-products-catagory clearfix">
+                                <Col span={8}className="single-products-catagory clearfix">
                                     <a href="shop.html">
-                                    <img src={bg2} alt="" />
-                                    {/* <!-- Hover Content --> */}
-                                    <div className="hover-content">
-                                        <div className="line"></div>
-                                        <p>From $180</p>
-                                        <h4>Minimalistic Plant Pot</h4>
-                                    </div>
+                                        <img src={bg2} alt="" />
+                                        {/* <!-- Hover Content --> */}
+                                        <div className="hover-content">
+                                            <div className="line"></div>
+                                            <p>From $180</p>
+                                            <h4>Minimalistic Plant Pot</h4>
+                                        </div>
                                     </a>
-                                </div>
+                                    <a href="shop.html">
+                                        <img src={bg6} alt="" />
+                                        {/* <!-- Hover Content --> */}
+                                        <div className="hover-content">
+                                            <div className="line"></div>
+                                            <p>From $18</p>
+                                            <h4>Plant Pot</h4>
+                                        </div>
+                                    </a>
+                                    <a href="shop.html">
+                                        <img src={bg9} alt="" />
+                                        {/* <!-- Hover Content --> */}
+                                        <div className="hover-content">
+                                            <div className="line"></div>
+                                            <p>From $318</p>
+                                            <h4>Modern Rocking Chair</h4>
+                                        </div>
+                                    </a>
+                                </Col>
 
                                 {/* <!-- Single Catagory --> */}
-                                <div className="single-products-catagory clearfix">
+                                <Col span={8}className="single-products-catagory clearfix">
                                     <a href="shop.html">
-                                    <img src={bg3} alt="" />
-                                    {/* <!-- Hover Content --> */}
-                                    <div className="hover-content">
-                                        <div className="line"></div>
-                                        <p>From $180</p>
-                                        <h4>Modern Chair</h4>
-                                    </div>
+                                        <img src={bg3} alt="" />
+                                        {/* <!-- Hover Content --> */}
+                                        <div className="hover-content">
+                                            <div className="line"></div>
+                                            <p>From $180</p>
+                                            <h4>Modern Chair</h4>
+                                        </div>
                                     </a>
-                                </div>
-
-                                {/* <!-- Single Catagory --> */}
-                                <div className="single-products-catagory clearfix">
                                     <a href="shop.html">
-                                    <img src={bg5} alt="" />
-                                    {/* <!-- Hover Content --> */}
-                                    <div className="hover-content">
-                                        <div className="line"></div>
-                                        <p>From $180</p>
-                                        <h4>Night Stand</h4>
-                                    </div>
+                                        <img src={bg4} alt="" />
+                                        {/* <!-- Hover Content --> */}
+                                        <div className="hover-content">
+                                            <div className="line"></div>
+                                            <p>From $320</p>
+                                            <h4>Small Table</h4>
+                                        </div>
                                     </a>
-                                </div>
-
-                                {/* <!-- Single Catagory --> */}
-                                <div className="single-products-catagory clearfix">
                                     <a href="shop.html">
-                                    <img src={bg6} alt="" />
-                                    {/* <!-- Hover Content --> */}
-                                    <div className="hover-content">
-                                        <div className="line"></div>
-                                        <p>From $18</p>
-                                        <h4>Plant Pot</h4>
-                                    </div>
+                                        <img src={bg7} alt="" />
+                                        {/* <!-- Hover Content --> */}
+                                        <div className="hover-content">
+                                            <div className="line"></div>
+                                            <p>From $318</p>
+                                            <h4>Home Deco</h4>
+                                        </div>
                                     </a>
-                                </div>
-
-                                {/* <!-- Single Catagory --> */}
-                                <div className="single-products-catagory clearfix">
-                                    <a href="shop.html">
-                                    <img src={bg4} alt="" />
-                                    {/* <!-- Hover Content --> */}
-                                    <div className="hover-content">
-                                        <div className="line"></div>
-                                        <p>From $320</p>
-                                        <h4>Small Table</h4>
-                                    </div>
-                                    </a>
-                                </div>
-
-                                {/* <!-- Single Catagory --> */}
-                                <div className="single-products-catagory clearfix">
-                                    <a href="shop.html">
-                                    <img src={bg8} alt="" />
-                                    {/* <!-- Hover Content --> */}
-                                    <div className="hover-content">
-                                        <div className="line"></div>
-                                        <p>From $318</p>
-                                        <h4>Metallic Chair</h4>
-                                    </div>
-                                    </a>
-                                </div>
-
-                                {/* <!-- Single Catagory --> */}
-                                <div className="single-products-catagory clearfix">
-                                    <a href="shop.html">
-                                    <img src={bg9} alt="" />
-                                    {/* <!-- Hover Content --> */}
-                                    <div className="hover-content">
-                                        <div className="line"></div>
-                                        <p>From $318</p>
-                                        <h4>Modern Rocking Chair</h4>
-                                    </div>
-                                    </a>
-                                </div>
-
-                                {/* <!-- Single Catagory --> */}
-                                <div className="single-products-catagory clearfix">
-                                    <a href="shop.html">
-                                    <img src={bg7} alt="" />
-                                    {/* <!-- Hover Content --> */}
-                                    <div className="hover-content">
-                                        <div className="line"></div>
-                                        <p>From $318</p>
-                                        <h4>Home Deco</h4>
-                                    </div>
-                                    </a>
-                                </div>
-                            </div>
+                                </Col>
+                                
+                            </Row>
+                            
+                            
                         </div>
-                        {/* <!-- Product Catagories Area End --> */}
-                        {/* <!-- ##### Main Content Wrapper End ##### --> */}
-                        {/* </Col> */}
-                    {/* </Row> */}
+                    </div>
+                    {/* <!-- Product Catagories Area End --> */}
+                    {/* <!-- ##### Main Content Wrapper End ##### --> */}
+                   
                 </Content>
             </Layout>
+            <NewsLetter />
             <CustomFooter />
         </Layout>
     )
