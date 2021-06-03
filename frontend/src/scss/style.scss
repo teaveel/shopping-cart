@@ -622,7 +622,7 @@ img {
             }
         }
     }
-    .products-catagories-area {
+    .products-categories-area {
         @include flex(0 0 calc(100% - 320px));
         width: calc(100% - 320px);
         max-width: calc(100% - 320px);
@@ -1072,7 +1072,7 @@ img {
     }
 }
 
-.single-products-catagory {
+.single-products-category {
     position: relative;
     z-index: 1;
     width: 33.33333%;
@@ -1414,7 +1414,7 @@ img {
         text-transform: capitalize;
         color: #242424;
     }
-    .catagories-menu {
+    .categories-menu {
         li {
             a {
                 text-transform: capitalize;
