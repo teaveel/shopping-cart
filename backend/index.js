@@ -1,14 +1,14 @@
 require("dotenv").config();
-const express = require('express');
+const express = require("express");
 const mongoose = require("mongoose");
-const connectDB = require("./config/db")
+const connectDB = require("./config/db");
 
 const PORT = process.env.PORT || 4000;
 
 const app = express();
 
-const productRouter = require("./routers/product.js")
-
+const productRouter = require("./routers/product");
+const propertyRouter = require("./routers/property");
 
 app.use(require("cors")());
 app.use(express.urlencoded({ extended: true }));
@@ -20,7 +20,9 @@ app.get("/", (req, res) => {
   res.json({ message: "api is running!" });
 });
 
-app.use("/api/products", productRouter)
+app.use("/api/products", productRouter);
+app.use("/api/properties", propertyRouter);
 
-
-app.listen(PORT, () => console.log(`server is running: http://localhost:${PORT}`))
+app.listen(PORT, () =>
+  console.log(`server is running: http://localhost:${PORT}`)
+);
