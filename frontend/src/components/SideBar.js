@@ -11,12 +11,12 @@ export default function SideBar() {
   return (
     <div className="shop_sidebar_area">
       {/* <!-- ##### Single Widget ##### --> */}
-      <div className="widget catagory mb-50">
+      <div className="widget category mb-50">
         {/* <!-- Widget Title --> */}
-        <h6 className="widget-title mb-30">Catagories</h6>
+        <h6 className="widget-title mb-30">categories</h6>
 
-        {/* <!--  Catagories  --> */}
-        <div className="catagories-menu">
+        {/* <!--  categories  --> */}
+        <div className="categories-menu">
           <ul>
             <li className="active">
               <a href="#">Chairs</a>
