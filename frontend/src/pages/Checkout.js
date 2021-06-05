@@ -1,4 +1,6 @@
-import React, { Component, useState } from "react";
+import React, { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import axios from "axios";
 import CustomSider from "../components/CustomSider";
 import CustomFooter from "../components/CustomFooter";
 import NewsLetter from "../components/NewsLetter";
@@ -12,35 +14,98 @@ import {
   Checkbox,
   Button,
   Radio,
+  notification,
 } from "antd";
 import "../scss/style.scss";
 import "../css/core-style.css";
-
+import { resetCart } from "../actions/cart-action";
 const { Sider, Content, Footer } = Layout;
 const { Option } = Select;
 const { TextArea } = Input;
 
-export default function Checkout() {
+const { getFieldsValue } = Form;
+
+export default function Checkout(props) {
   const options = [
-    { label: "Create an account", value: "Create an account" },
     {
       label: "Ship to a different address",
       value: "Ship to a different address",
     },
   ];
   const paymentOptions = [
-    { label: "Cash on Delivery", value: "Cash on Delivery" },
+    { label: "Cash on Delivery", value: "Cash" },
     { label: "Paypal", value: "Paypal" },
   ];
-  const [loading, setLoading] = useState(false);
-  //TODO: HANDLE SEND REQUEST AND LOADING
-  const enterLoading = (index) => {
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-    }, 6000);
+
+  const { cartItems } = useSelector((state) => state.cart);
+
+  const [paymentType, setPaymentType] = useState("Cash");
+  const handleChangePayment = (e) => {
+    setPaymentType(e.target.value);
   };
 
+  const handleSubmitForm = (e) => {
+    e.preventDefault();
+    console.log(props.form);
+    console.log(e);
+  };
+  const dispatch = useDispatch();
+
+  const onFinish = (values) => {
+    if (cartItems.length == 0) {
+      notification["error"]({
+        message: "Checkout failed!",
+        description: "Cart is empty!",
+      });
+      return;
+    }
+    const payload = {
+      ...values,
+      paymentType,
+      cartItems: cartItems.map((item) => {
+        return {
+          _id: item.product,
+          quantity: item.qty,
+        };
+      }),
+    };
+    axios.post("/api/checkout", payload).then(
+      (response) => {
+        console.log(response);
+        const { error, success } = response.data;
+        if (success) {
+          notification["success"]({
+            message: "Checkout successfully!",
+            description: "Thank you for buying!",
+          });
+          dispatch(resetCart());
+
+          form.setFieldsValue({
+            firstName: "",
+            lastName: "",
+            company: "",
+            email: "",
+            country: "",
+            address: "",
+            city: "",
+            comment: "",
+            phoneNumber: "",
+            zipCode: "",
+            shipDiff: [],
+          });
+        } else {
+          notification["error"]({
+            message: "Checkout failed!",
+            description: error,
+          });
+        }
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  };
+  const [form] = Form.useForm();
   return (
     <Layout>
       <Layout>
@@ -58,7 +123,13 @@ export default function Checkout() {
                       <h2>Checkout</h2>
                     </div>
 
-                    <Form action="#" method="post">
+                    <Form
+                      form={form}
+                      onFinish={onFinish}
+                      id="checkout_form"
+                      action="/api/checkout"
+                      method="post"
+                    >
                       <Row gutter={[12, 0]}>
                         <Col md={12}>
                           <Form.Item
@@ -68,11 +139,11 @@ export default function Checkout() {
                                 message: "Please input your first name!",
                               },
                             ]}
+                            name="firstName"
                           >
                             <Input
                               size="large"
                               id="first_name"
-                              value=""
                               placeholder="First Name"
                               required
                             />
@@ -86,41 +157,67 @@ export default function Checkout() {
                                 message: "Please input your last name!",
                               },
                             ]}
+                            name="lastName"
                           >
                             <Input
                               size="large"
                               id="last_name"
-                              value=""
                               placeholder="Last Name"
                               required
                             />
                           </Form.Item>
                         </Col>
                         <Col span={24}>
-                          <Form.Item>
+                          <Form.Item
+                            name="company"
+                            rules={[
+                              {
+                                required: true,
+                                message: "Please input your company",
+                              },
+                            ]}
+                          >
                             <Input
                               size="large"
                               id="company"
                               placeholder="Company Name"
-                              value=""
                             />
                           </Form.Item>
                         </Col>
                         <Col span={24}>
-                          <Form.Item>
+                          <Form.Item
+                            name="email"
+                            rules={[
+                              {
+                                type: "email",
+                                message: "The input is not valid e-mail!",
+                              },
+                              {
+                                required: true,
+                                message: "Please input your E-mail!",
+                              },
+                            ]}
+                          >
                             <Input
                               size="large"
                               id="email"
                               placeholder="Email"
-                              value=""
                             />
                           </Form.Item>
                         </Col>
                         <Col span={24}>
-                          <Form.Item>
+                          <Form.Item
+                            name="country"
+                            rules={[
+                              {
+                                required: true,
+                                message: "Please input your country",
+                              },
+                            ]}
+                          >
                             <Select
                               size="large"
-                              defaultValue="United States"
+                              placeholder="Select your country"
                               id="country"
                             >
                               <Option value="usa">United States</Option>
@@ -134,61 +231,75 @@ export default function Checkout() {
                             </Select>
                           </Form.Item>
                         </Col>
+
                         <Col span={24}>
-                          <Form.Item>
-                            <Input
-                              size="large"
-                              id="email"
-                              placeholder="Email"
-                              value=""
-                            />
-                          </Form.Item>
-                        </Col>
-                        <Col span={24}>
-                          <Form.Item>
+                          <Form.Item
+                            name="address"
+                            rules={[
+                              {
+                                required: true,
+                                message: "Please input your street address",
+                              },
+                            ]}
+                          >
                             <Input
                               size="large"
                               id="street_address"
                               placeholder="Address"
-                              value=""
                             />
                           </Form.Item>
                         </Col>
                         <Col span={24}>
-                          <Form.Item>
-                            <Input
-                              size="large"
-                              id="city"
-                              placeholder="Town"
-                              value=""
-                            />
+                          <Form.Item
+                            name="city"
+                            rules={[
+                              {
+                                required: true,
+                                message: "Please input your city",
+                              },
+                            ]}
+                          >
+                            <Input size="large" id="city" placeholder="City" />
                           </Form.Item>
                         </Col>
                         <Col md={12}>
-                          <Form.Item>
+                          <Form.Item
+                            name="zipCode"
+                            rules={[
+                              {
+                                required: true,
+                                message: "Please input zip code",
+                              },
+                            ]}
+                          >
                             <Input
                               size="large"
                               id="zipCode"
                               placeholder="Zip Code"
-                              value=""
                             />
                           </Form.Item>
                         </Col>
                         <Col md={12}>
-                          <Form.Item>
+                          <Form.Item
+                            name="phoneNumber"
+                            rules={[
+                              {
+                                required: true,
+                                message: "Please input your phone number",
+                              },
+                            ]}
+                          >
                             <Input
                               size="large"
                               id="phone_number"
                               min="0"
                               placeholder="Phone No"
-                              value=""
                             />
                           </Form.Item>
                         </Col>
                         <Col span={24}>
-                          <Form.Item>
+                          <Form.Item name="comment">
                             <TextArea
-                              name="comment"
                               id="comment"
                               cols="30"
                               rows="10"
@@ -198,7 +309,7 @@ export default function Checkout() {
                         </Col>
 
                         <Col span={24}>
-                          <Form.Item>
+                          <Form.Item name="shipDiff">
                             <Checkbox.Group options={options} />
                           </Form.Item>
                         </Col>
@@ -211,26 +322,43 @@ export default function Checkout() {
                     <h5>Cart Total</h5>
                     <ul className="summary-table">
                       <li>
-                        <span>subtotal:</span> <span>$140.00</span>
+                        <span>Subtotal:</span>{" "}
+                        <span>
+                          $
+                          {cartItems.reduce((total, item) => {
+                            return (total += item.price * item.qty);
+                          }, 0)}
+                        </span>
                       </li>
                       <li>
-                        <span>delivery:</span> <span>Free</span>
+                        <span>Delivery:</span> <span>Free</span>
                       </li>
                       <li>
-                        <span>total:</span> <span>$140.00</span>
+                        <span>Total:</span>{" "}
+                        <span>
+                          $
+                          {cartItems.reduce((total, item) => {
+                            return (total += item.price * item.qty);
+                          }, 0)}
+                        </span>
                       </li>
                     </ul>
 
                     <div className="payment-method">
-                      <Radio.Group options={paymentOptions} />
+                      <Radio.Group
+                        onChange={handleChangePayment}
+                        options={paymentOptions}
+                        defaultValue="Cash"
+                        value={paymentType}
+                      />
                     </div>
 
                     <div className="cart-btn mt-100">
                       <Button
+                        htmlType="submit"
                         className="btn amado-btn"
-                        type="primary"
-                        loading={loading}
-                        onClick={() => enterLoading()}
+                        form={form}
+                        onClick={() => form.submit()}
                       >
                         Checkout
                       </Button>

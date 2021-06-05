@@ -1,19 +1,10 @@
-import React, { Component, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import CustomSider from "../components/CustomSider";
 import CustomFooter from "../components/CustomFooter";
 import NewsLetter from "../components/NewsLetter";
-import {
-  Layout,
-  Row,
-  Col,
-  InputNumber,
-  Button,
-  Table,
-  Tag,
-  Popconfirm,
-} from "antd";
+import { Layout, Row, Col, Button, Table, Tag, Popconfirm } from "antd";
 import "../scss/style.scss";
 import "../css/core-style.css";
 
@@ -122,13 +113,13 @@ export default function Cart() {
                     <h5>Cart Total</h5>
                     <ul className="summary-table">
                       <li>
-                        <span>subtotal:</span> <span>${amount}</span>
+                        <span>Subtotal:</span> <span>${amount}</span>
                       </li>
                       <li>
-                        <span>delivery:</span> <span>Free</span>
+                        <span>Delivery:</span> <span>Free</span>
                       </li>
                       <li>
-                        <span>total:</span> <span>${amount}</span>
+                        <span>Total:</span> <span>${amount}</span>
                       </li>
                     </ul>
                     <div className="cart-btn mt-100">

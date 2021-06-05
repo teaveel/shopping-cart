@@ -1,4 +1,4 @@
-import React, { Component, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import CustomSider from "../components/CustomSider";
@@ -21,16 +21,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircle } from "@fortawesome/free-solid-svg-icons";
 import "../scss/style.scss";
 import "../css/core-style.css";
-import product1 from "../img/product-img/pro-big-1.jpg";
-import product2 from "../img/product-img/pro-big-2.jpg";
-import product3 from "../img/product-img/pro-big-3.jpg";
-import product4 from "../img/product-img/pro-big-4.jpg";
 
 import { getProductDetails } from "../actions/product-action";
-import { productDetailsReducer } from "../reducers/product-reducer";
 import { addToCart } from "../actions/cart-action";
 
-const { Sider, Content, Footer } = Layout;
+const { Content } = Layout;
 
 export default function Product(props) {
   const dispatch = useDispatch();
@@ -74,7 +69,6 @@ export default function Product(props) {
         ) : (
           <Content className="main-content-wrapper d-flex clearfix">
             <CustomSider page="product" />
-            {/* <!-- Product Details Area Start --> */}
             <div className="single-product-area section-padding-100 clearfix">
               <div className="container-fluid">
                 <Row
@@ -138,7 +132,6 @@ export default function Product(props) {
                         </Row>
                         {product.quantity > 0 ? (
                           <p className="avaibility">
-                            <FontAwesomeIcon icon={faCircle} color="#20d34a" />
                             &nbsp;In Stock: {product.quantity}
                           </p>
                         ) : (

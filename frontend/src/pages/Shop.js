@@ -5,7 +5,6 @@ import axios from "axios";
 import CustomSider from "../components/CustomSider";
 import CustomFooter from "../components/CustomFooter";
 import NewsLetter from "../components/NewsLetter";
-import SideBar from "../components/SideBar";
 
 import {
   Layout,
@@ -24,49 +23,66 @@ import {
 } from "antd";
 import "../scss/style.scss";
 import "../css/core-style.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars, faHeart, faThLarge } from "@fortawesome/free-solid-svg-icons";
-import product1 from "../img/product-img/product1.jpg";
-import product2 from "../img/product-img/product2.jpg";
-import product3 from "../img/product-img/product3.jpg";
-import product4 from "../img/product-img/product4.jpg";
-import product5 from "../img/product-img/product5.jpg";
-import product6 from "../img/product-img/product6.jpg";
-import cartImg from "../img/core-img/cart.png";
 
 import { getProducts } from "../actions/product-action";
-import {
-  getCategories,
-  getBrands,
-  getColors,
-} from "../actions/properties-action";
+import { getCategories, getBrands } from "../actions/properties-action";
 
-const { Sider, Content, Footer } = Layout;
-const { Meta } = Card;
+const { Content } = Layout;
 const { Option } = Select;
 
 export default function Shop() {
   const dispatch = useDispatch();
 
-  const { products, loading, error } = useSelector((state) => state.products);
-  const { categories, brands, colors } = useSelector(
-    (state) => state.properties
+  const { products, totalProducts, loading, error } = useSelector(
+    (state) => state.products
   );
+  const { categories, brands } = useSelector((state) => state.properties);
+  const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(8);
+  const [sortBy, setSortBy] = useState("Newest");
+  const [checkedCategories, setCheckedCategories] = useState(categories);
+  const [checkedBrands, setCheckedBrands] = useState(brands);
+  const [minPrice, setMinPrice] = useState(0);
+  const [maxPrice, setMaxPrice] = useState(2000);
 
   const [filters, setFilters] = useState({
-    page: 1,
+    page: page,
     pageSize: pageSize,
+    sortBy: sortBy,
   });
 
-  const handleChangePage = (page, pageSize) => {};
+  const handleChangePage = (page) => {
+    setPage(page);
+    setFilters({ ...filters, page });
+  };
+  const handleChangePageSize = (pageSize) => {
+    setPageSize(pageSize);
+    setFilters({ ...filters, pageSize });
+  };
+  const handleChangeSortBy = (value) => {
+    setSortBy(value);
+    setFilters({ ...filters, sortBy: value });
+  };
+  const handleChangeCategories = (checkedValue) => {
+    setCheckedCategories(checkedValue);
+    setFilters({ ...filters, categories: checkedValue.join(",") });
+  };
 
-  useEffect(async () => {
+  const handleChangeBrands = (checkedValue) => {
+    setCheckedBrands(checkedValue);
+    setFilters({ ...filters, brands: checkedValue.join(",") });
+  };
+  const handleChangePrice = (values) => {
+    setMinPrice(values[0]);
+    setMaxPrice(values[1]);
+    setFilters({ ...filters, min: values[0], max: values[1] });
+  };
+
+  useEffect(() => {
     dispatch(getProducts(filters));
     dispatch(getCategories());
     dispatch(getBrands());
-    dispatch(getColors());
-  }, [dispatch]);
+  }, [dispatch, filters]);
   return (
     <Layout>
       <Layout>
@@ -77,28 +93,90 @@ export default function Shop() {
         ) : (
           <Content className="main-content-wrapper d-flex clearfix">
             <CustomSider page="shop" />
-            <SideBar />
+            <div className="shop_sidebar_area">
+              <div className="widget category mb-50">
+                <Form
+                  initialValues={{
+                    "category-group": checkedCategories,
+                    "brand-group": checkedBrands,
+                  }}
+                >
+                  <Form.Item name="category-group" label="Categories">
+                    <Checkbox.Group onChange={handleChangeCategories}>
+                      <Row>
+                        {categories
+                          ? categories.map((category) => {
+                              return (
+                                <Col span={24}>
+                                  <Checkbox
+                                    key={category}
+                                    checked={true}
+                                    value={category}
+                                    style={{ lineHeight: "36px" }}
+                                  >
+                                    {category}
+                                  </Checkbox>
+                                </Col>
+                              );
+                            })
+                          : null}
+                      </Row>
+                    </Checkbox.Group>
+                  </Form.Item>
+                  <Form.Item name="brand-group" label="Brands">
+                    <Checkbox.Group onChange={handleChangeBrands}>
+                      <Row>
+                        {brands
+                          ? brands.map((brand) => {
+                              return (
+                                <Col span={24}>
+                                  <Checkbox
+                                    value={brand}
+                                    style={{ lineHeight: "36px" }}
+                                  >
+                                    {brand}
+                                  </Checkbox>
+                                </Col>
+                              );
+                            })
+                          : null}
+                      </Row>
+                    </Checkbox.Group>
+                  </Form.Item>
+
+                  <Form.Item label="Price">
+                    <Slider
+                      range
+                      min={0}
+                      max={2000}
+                      defaultValue={[minPrice, maxPrice]}
+                      marks={{ 0: "0$", 2000: "2000$" }}
+                      onAfterChange={handleChangePrice}
+                    />
+                  </Form.Item>
+                </Form>
+              </div>
+            </div>
             <div className="amado_product_area section-padding-100">
               <div className="container-fluid">
-                <Row justify="end" align="bottom">
-                  {/* <!-- Sorting --> */}
-                  <Col offset={16} span={24} className="product-sorting d-flex">
+                <Row justify="end" style={{ marginBottom: "15px" }}>
+                  <Col span={9} className="product-sorting d-flex">
                     <Form action="#" method="get" layout="inline">
                       <Form.Item label="Sort by">
                         <Select
-                          defaultValue="Date"
-                          title="Sort by"
-                          style={{ width: "150px" }}
+                          defaultValue={sortBy}
+                          style={{ width: "100px" }}
+                          onSelect={handleChangeSortBy}
                         >
-                          <Option value="Date">Date</Option>
                           <Option value="Newest">Newest</Option>
-                          <Option value="Popular">Popular</Option>
+                          <Option value="Rating">Rating</Option>
                         </Select>
                       </Form.Item>
                       <Form.Item label="View">
                         <Select
-                          defaultValue={8}
-                          onSelect={(value) => setPageSize(value)}
+                          defaultValue={pageSize}
+                          style={{ width: "100px" }}
+                          onSelect={handleChangePageSize}
                         >
                           <Option value={8}>8</Option>
                           <Option value={12}>12</Option>
@@ -163,11 +241,10 @@ export default function Shop() {
 
                 <Row>
                   <Col span={24}>
-                    {/* <!-- Pagination --> */}
                     <Pagination
-                      defaultCurrent={1}
-                      total={12}
-                      defaultPageSize={8}
+                      defaultCurrent={page}
+                      total={totalProducts}
+                      defaultPageSize={pageSize}
                       pageSize={pageSize}
                       onChange={handleChangePage}
                       showTotal={(total, range) =>
