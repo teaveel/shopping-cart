@@ -6,7 +6,6 @@ const getProducts = async (req, res) => {
   const sortBy = req.query.sortBy || "Newest";
   const categories = req.query.categories || "";
   const brands = req.query.brands || "";
-  const color = req.query.color || "";
   const minPrice = Number(req.query.min) || 0;
   const maxPrice = Number(req.query.max) || 0;
 
@@ -23,11 +22,6 @@ const getProducts = async (req, res) => {
   const priceFilter = {
     price: maxPrice ? { $gte: minPrice, $lte: maxPrice } : { $gte: minPrice },
   };
-  const colorFilter = color
-    ? {
-        color: color,
-      }
-    : {};
   let sortFilter;
   if (sortBy == "Newest") sortFilter = { $sort: { createdAt: -1 } };
   else sortFilter = { $sort: { rate: -1 } };
@@ -35,7 +29,6 @@ const getProducts = async (req, res) => {
     ...brandFilter,
     ...categoryFilter,
     ...priceFilter,
-    ...colorFilter,
   };
   try {
     const products = await Product.aggregate([
