@@ -1,14 +1,12 @@
-import React, { useState } from "react";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import { Layout, Menu, Button } from "antd";
+import React from "react";
+import { Link } from "react-router-dom";
+import { Button } from "antd";
 import "../scss/style.scss";
 import "../css/core-style.css";
 import logo from "../img/core-img/logo.png";
 import cart from "../img/core-img/cart.png";
 import favorites from "../img/core-img/favorites.png";
 import search from "../img/core-img/search.png";
-
-const { Sider } = Layout;
 
 export default function CustomSider({ page }) {
   return (
@@ -52,21 +50,6 @@ export default function CustomSider({ page }) {
         </a>
         <a href="#" className="search-nav">
           <img src={search} alt="" /> Search
-        </a>
-      </div>
-      {/* <!-- Social Button --> */}
-      <div className="social-info d-flex justify-content-between">
-        <a href="#">
-          <i className="fa fa-pinterest" aria-hidden="true"></i>
-        </a>
-        <a href="#">
-          <i className="fa fa-instagram" aria-hidden="true"></i>
-        </a>
-        <a href="#">
-          <i className="fa fa-facebook" aria-hidden="true"></i>
-        </a>
-        <a href="#">
-          <i className="fa fa-twitter" aria-hidden="true"></i>
         </a>
       </div>
     </header>

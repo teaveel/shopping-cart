@@ -1,15 +1,11 @@
 import React from "react";
-import { Layout, Row, Col, Menu } from "antd";
+import { Row, Col } from "antd";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import "../scss/style.scss";
 import "../css/core-style.css";
 import logo2 from "../img/core-img/logo2.png";
-import moment from "moment";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHeart } from "@fortawesome/free-solid-svg-icons";
-//import 'bootstrap/dist/css/bootstrap.css';
-
-const { Footer } = Layout;
 
 export default function CustomFooter() {
   return (
