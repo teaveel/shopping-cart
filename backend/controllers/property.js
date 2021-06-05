@@ -9,7 +9,7 @@ const getCategories = async (req, res) => {
         },
       },
     ]);
-    res.json(categories.map((c) => c._id));
+    res.json(categories.map((c) => c._id).sort());
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: "Server Error" });
@@ -25,31 +25,13 @@ const getBrands = async (req, res) => {
         },
       },
     ]);
-    res.json(brands.map((c) => c._id));
+    res.json(brands.map((c) => c._id).sort());
   } catch (error) {
-    console.log(error);
-    res.status(500).json({ message: "Server Error" });
-  }
-};
-
-const getColors = async (req, res) => {
-  try {
-    const colors = await Product.aggregate([
-      {
-        $group: {
-          _id: "$color",
-        },
-      },
-    ]);
-    res.json(colors.map((c) => c._id));
-  } catch (error) {
-    console.log(error);
     res.status(500).json({ message: "Server Error" });
   }
 };
 
 module.exports = {
   getCategories,
-  getColors,
   getBrands,
 };
