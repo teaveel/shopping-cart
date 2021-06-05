@@ -2,6 +2,7 @@ import * as actionTypes from "../constants/product-constants";
 
 const initialState = {
   products: [],
+  totalProducts: 0,
 };
 
 export const productsReducer = (state = initialState, action) => {
@@ -14,7 +15,8 @@ export const productsReducer = (state = initialState, action) => {
     case actionTypes.GET_PRODUCTS_SUCCESS:
       return {
         loading: false,
-        products: action.payload,
+        products: action.payload.products,
+        totalProducts: action.payload.totalProducts,
       };
     case actionTypes.GET_PRODUCTS_FAIL:
       return {
