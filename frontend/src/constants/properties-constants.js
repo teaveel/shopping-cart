@@ -1,4 +1,3 @@
 export const GET_CATEGORIES = "GET_CATEGORIES";
 export const GET_BRANDS = "GET_BRANDS";
-export const GET_COLORS = "GET_COLORS";
 export const GET_PROPERTIES_FAIL = "GET_PROPERTIES_FAIL";
