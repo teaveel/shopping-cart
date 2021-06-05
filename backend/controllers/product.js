@@ -3,6 +3,7 @@ const Product = require("../models/Product");
 const getProducts = async (req, res) => {
   const pageSize = Number(req.query.pageSize) || 8;
   const page = Number(req.query.page) || 1;
+  const sortBy = req.query.sortBy || "Newest";
   const categories = req.query.categories || "";
   const brands = req.query.brands || "";
   const color = req.query.color || "";
@@ -27,16 +28,18 @@ const getProducts = async (req, res) => {
         color: color,
       }
     : {};
-
+  let sortFilter;
+  if (sortBy == "Newest") sortFilter = { $sort: { createdAt: -1 } };
+  else sortFilter = { $sort: { rate: -1 } };
   const filters = {
     ...brandFilter,
     ...categoryFilter,
     ...priceFilter,
     ...colorFilter,
   };
-
   try {
     const products = await Product.aggregate([
+      sortFilter,
       {
         $match: filters,
       },
@@ -45,9 +48,9 @@ const getProducts = async (req, res) => {
         $limit: pageSize,
       },
     ]);
-    res.json(products);
+    const totalProducts = await Product.countDocuments({});
+    res.json({ totalProducts, products });
   } catch (error) {
-    console.log(error);
     res.status(500).json({ message: "Server Error" });
   }
 };
@@ -55,10 +58,8 @@ const getProducts = async (req, res) => {
 const getProductById = async (req, res) => {
   try {
     const product = await Product.findById(req.params.id);
-    console.log(typeof req.params.id);
     res.json(product);
   } catch (error) {
-    console.log(error);
     res.status(500).json({ message: "Server Error" });
   }
 };
