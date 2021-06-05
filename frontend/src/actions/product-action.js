@@ -5,8 +5,12 @@ export const getProducts = (filters) => async (dispatch) => {
     dispatch({
       type: actionTypes.GET_PRODUCTS_REQUEST,
     });
-
-    const { data } = await axios.get("/api/products");
+    let path = "/api/products?";
+    for (let prop in filters) {
+      path += `${prop}=${filters[prop]}&`;
+    }
+    console.log(path);
+    const { data } = await axios.get(path);
     dispatch({
       type: actionTypes.GET_PRODUCTS_SUCCESS,
       payload: data,
@@ -36,8 +40,4 @@ export const getProductDetails = (id) => async (dispatch) => {
       payload: error.message,
     });
   }
-};
-
-export const removeProductDetails = () => (dispatch) => {
-  dispatch({ type: actionTypes.GET_PRODUCT_DETAILS_RESET });
 };
