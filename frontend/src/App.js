@@ -13,10 +13,6 @@ import Checkout from "./pages/Checkout";
 import Product from "./pages/Product";
 import Shop from "./pages/Shop";
 
-function callback(key) {
-  console.log(key);
-}
-
 function App() {
   return (
     <Router>
